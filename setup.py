@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 setup(
     name="wos",
     version="0.0.1",
-    author="Anonymous",
+    author="Hong Chul Nam",
     description="Neural Walk-on-Sphere for elliptic PDEs",
     packages=find_packages(include=["wos"]),
     python_requires=">=3.10",
