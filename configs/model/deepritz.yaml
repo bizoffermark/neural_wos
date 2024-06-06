@@ -1,0 +1,10 @@
+_target_: wos.models.deep_ritz.DeepRitzNet
+in_dim: ${pde.n_dim}
+out_dim: 1
+hid_dim: 64
+n_blocks: 4
+n_layers: 2
+is_original: False
+act_fn:
+  _target_: torch.nn.GELU
+

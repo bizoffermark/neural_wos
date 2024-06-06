@@ -1,0 +1,38 @@
+defaults:
+  - model_base_solver
+  - _self_
+
+solver_name: 'Buffer NWoS'
+n_traj: 100
+n_traj_init: 1 # initial # of trajectory to walk
+max_step: 10
+
+path_aug: False
+nn_target: True
+
+control_variate: True
+
+bound_init: False
+
+train_period: 100
+buffer_size: ${eval:"int(${solver.n_batch}*10)"} #1000000
+n_traj_max_per_shard: 100 
+
+n_batch_bound_factor: 0.1
+n_batch_buffer_factor: 0.6
+n_batch_domain_factor: ${eval:"max(1.0 - ${solver.n_batch_bound_factor} - ${solver.n_batch_buffer_factor}, 0.0)"}
+
+n_batch: 65536
+n_batch_domain: ${eval:"int(${solver.n_batch}*${solver.n_batch_domain_factor})"}
+n_batch_buffer: ${eval:"int(${solver.n_batch}*${solver.n_batch_buffer_factor})"}
+n_batch_bound: ${eval:"max(${solver.n_batch} - ${solver.n_batch_domain} - ${solver.n_batch_buffer}, 0)"}
+
+n_batch_train: ${eval:"int(${solver.n_batch}*2)"}
+
+beta: 1.0
+
+solver:
+  _target_: wos.solvers.buffer_nwos_solver.BufferNWoSSolver
+
+wos_solver:
+  _target_: wos.solvers.wos_solver.WoSSolver

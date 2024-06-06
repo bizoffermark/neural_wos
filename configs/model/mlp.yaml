@@ -1,0 +1,11 @@
+_target_: wos.models.mlp.MLP
+in_dim: ${pde.n_dim}
+hid_dim: 256
+out_dim: 1
+n_hidden: 6
+act_fn:
+  _target_: torch.nn.GELU
+use_resnet: True
+# normalization_factory: 
+#   _target_: torch.nn.BatchNorm1d
+#   num_features: ${solver.model.hid_dim}

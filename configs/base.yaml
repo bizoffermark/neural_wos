@@ -1,0 +1,17 @@
+defaults:
+  - setup
+  - _self_
+  - pde: committor_nd
+  - optimizer: adam
+  - solver: wos
+  - lr_scheduler: exponential
+  # - launcher: joblib
+
+
+
+out_dir: 
+ckpt_file: null
+store_last_ckpt: True
+upload_ckpt_to_wandb: last # Choose between True / False / "last"
+plot_results: False
+num_threads:

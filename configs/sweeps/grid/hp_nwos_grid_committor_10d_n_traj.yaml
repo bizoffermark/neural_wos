@@ -1,0 +1,26 @@
+# invoke the sweep using wandb sweep conf/sweeps/xyz.yaml
+program: scripts/main.py
+name: nwos_grid_committor_10d
+project: nwos_hp_grid
+method: grid
+parameters:
+  optimizer.lr:
+    values: [0.001, 0.01] #[0.0001, 0.001, 0.01]
+  solver.model.hid_dim:
+    values: [64, 128, 256]
+  solver.model.n_hidden:
+    values: [4] #[2, 4, 8]
+  solver.percentile:
+    values: [0.5, 0.9]
+  solver.n_batch:
+    values: [131072, 262144, 524288]
+command:
+  - ${env}
+  - python
+  - ${program}
+  - solver=nwos
+  - solver.n_iters=10000
+  - ${args_no_hyphens}
+  - pde=committor_nd
+  - pde.n_dim=10
+

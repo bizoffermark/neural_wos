@@ -1,0 +1,12 @@
+defaults:
+  - model_base_solver
+
+
+solver_name: 'PINN'
+
+beta: 500.0
+
+
+solver:
+  _target_: wos.solvers.pinn_solver.PINNSolver
+

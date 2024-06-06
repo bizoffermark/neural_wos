@@ -1,0 +1,16 @@
+solver_name: 'base_solver'
+stop_tol: 1e-4
+n_batch: 1000
+
+n_batch_domain: ${eval:"int(${solver.n_batch}*0.9)"}
+n_batch_bound: ${eval:${solver.n_batch} - ${solver.n_batch_domain}}
+device: 'cuda'
+eps: 1e-8  
+
+time_limit: -1
+
+n_sample_eval: 1000000
+
+n_iters: 1
+
+cuda_max_mem_train_mb: 2048

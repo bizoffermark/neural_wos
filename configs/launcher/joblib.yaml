@@ -1,0 +1,12 @@
+# @package _global_
+defaults:
+- override /hydra/launcher: joblib
+
+n_jobs: 5
+
+hydra:
+  launcher:
+    n_jobs: 5
+  job:
+    env_set:
+      CUDA_VISIBLE_DEVICES: '0'

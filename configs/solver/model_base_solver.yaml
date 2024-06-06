@@ -1,0 +1,15 @@
+defaults:
+  - base_solver
+  - /model: mlp
+  # - optimizer: adam
+
+
+solver_name: 'model_base_solver'
+n_iters: 100000
+# lr: 1e-3
+early_stopping: 1000
+use_early_stopping: False
+
+logging_period: 10000 #50
+solver:
+  _target_: wos.solvers.model_base_solver.ModelBaseSolver

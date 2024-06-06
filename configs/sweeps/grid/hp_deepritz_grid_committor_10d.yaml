@@ -1,0 +1,38 @@
+# invoke the sweep using wandb sweep conf/sweeps/xyz.yaml
+program: scripts/main.py
+name: deepritz_grid_committor_10d
+project: deepritz_hp_grid
+method: grid
+parameters:
+  solver:
+    parameters:
+      beta:
+        values: [100.0, 1000.0, 5000.0]
+      n_batch:
+        values: [8192, 16384]
+      model:
+        parameters:
+          hid_dim:
+            values: [64, 128, 256]
+          n_blocks:
+            values: [4] # [2, 4, 8]
+          n_layers:
+            values: [2] # [2, 4, 8]
+      n_iters:
+        values: [10000]
+  pde:
+    parameters:
+      n_dim:
+        values: [10]
+  optimizer:
+    parameters:
+      lr:
+        values: [0.001, 0.01] #[0.0001, 0.001, 0.01]
+command:
+  - ${env}
+  - python
+  - ${program}
+  - solver=deepritz
+  - ${args_no_hyphens}
+  - pde=committor_nd
+

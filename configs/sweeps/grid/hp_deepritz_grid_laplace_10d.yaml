@@ -1,0 +1,29 @@
+# invoke the sweep using wandb sweep conf/sweeps/xyz.yaml
+program: scripts/main.py
+name: deepritz_grid_laplace_10d
+project: deepritz_hp_grid
+method: grid
+parameters:
+  solver.beta:
+    values: [100.0, 1000.0, 5000.0]
+  optimizer.lr:
+    values: [0.001, 0.01] #[0.0001, 0.001, 0.01]
+  solver.model.hid_dim:
+    values: [64, 128, 256]
+  solver.model.n_blocks:
+    values: [4] # [2, 4, 8]
+  solver.model.n_layers:
+    values: [2] # [2, 4, 8]
+  solver.n_batch:
+    values: [8192, 16384]
+
+command:
+  - ${env}
+  - python
+  - ${program}
+  - solver=deepritz
+  - solver.n_iters=10000
+  - ${args_no_hyphens}
+  - pde=laplace_nd
+  - pde.n_dim=10
+

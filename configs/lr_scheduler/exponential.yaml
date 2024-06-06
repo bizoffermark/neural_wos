@@ -1,0 +1,3 @@
+_target_: torch.optim.lr_scheduler.ExponentialLR
+gamma: ${eval:"0.01**(1/${solver.n_iters})"}
+

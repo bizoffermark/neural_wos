@@ -1,0 +1,26 @@
+defaults:
+  - model_base_solver
+  - _self_
+
+solver_name: 'Diffusion Loss'
+n_traj: 1
+max_step: 50
+time_step: 0.001
+beta: 100
+
+path_aug: False
+nn_target: True
+grad_target: True
+control_variate: True
+
+n_traj_max_per_shard: 10000
+# n_batch_bound_factor: 0.9 
+# n_batch_eff: ${get_batch:${solver.max_step},${solver.n_batch},${solver.path_aug},${solver.n_traj}}
+# n_batch_domain: ${eval:"int(${solver.n_batch_eff}*${solver.n_batch_bound_factor})"}
+# n_batch_bound: ${eval:"${solver.n_batch_eff} - ${solver.n_batch_domain}"}
+
+solver:
+  _target_: wos.solvers.nsde_solver.NSDESolver
+
+sde_solver:
+  _target_: wos.solvers.sde_solver.SDESolver

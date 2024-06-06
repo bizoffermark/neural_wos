@@ -1,0 +1,16 @@
+defaults:
+  - base_solver
+
+solver_name: 'SDE'
+
+n_traj: 10
+max_step: 100
+time_step: 1e-3
+
+path_aug: False
+nn_target: False
+
+n_traj_max_per_shard: 10
+
+solver:
+  _target_: wos.solvers.sde_solver.SDESolver

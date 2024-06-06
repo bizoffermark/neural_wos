@@ -1,0 +1,5 @@
+_target_: wos.pdes.committor_nd.CommittorNd
+n_dim: 3
+r_low: 1.0
+r_high: 2.0
+stop_tol: ${solver.stop_tol}

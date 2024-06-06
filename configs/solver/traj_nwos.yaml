@@ -1,0 +1,30 @@
+defaults:
+  - model_base_solver
+  - _self_
+
+solver_name: 'Trajectory NWoS'
+n_traj: 1
+max_step: 5
+
+path_aug: False
+nn_target: True
+# percentile: 0.5 # for percentile-based stopping criterion -> if 0.5, d = 6 * n_dim
+
+control_variate: True
+
+n_traj_max_per_shard: 100
+size: ${get_batch:${solver.max_step},${solver.n_batch},${solver.path_aug},${solver.n_traj}}
+n_batch_domain: ${eval:"int(${solver.size}*0.9)"}
+n_batch_bound: ${eval:"max(${solver.size} - ${solver.n_batch_domain}, int(${solver.n_batch}*0.1))"}
+beta: 500.0
+# warm_start: -1 # period to warm start 
+
+alpha: 1e-3 #1e-6
+n_iters_opt: 50
+n_iters_train: 1000
+
+solver:
+  _target_: wos.solvers.traj_nwos_solver.TrajNWoSSolver
+
+wos_solver:
+  _target_: wos.solvers.wos_solver.WoSSolver

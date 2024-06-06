@@ -1,0 +1,4 @@
+_target_: torch.optim.lr_scheduler.CosineAnnealingWarmRestarts
+T_0: ${eval:"${solver.n_iters} // 10"}
+eta_min: 1e-8
+

@@ -1,0 +1,26 @@
+program: scripts/main.py
+name: pinn_grid_committor_10d
+project: pinn_hp_grid
+method: grid
+parameters:
+  solver.beta:
+    values: [100.0, 1000.0, 5000.0]
+  optimizer.lr:
+    values: [0.001, 0.01] #[0.0001, 0.001, 0.01]
+  solver.model.hid_dim:
+    values: [64, 128, 256]
+  solver.model.n_hidden:
+    values: [4] #[2, 4, 8]
+  solver.n_batch:
+    values: [4096, 8192] # [256, 512, 1024, 2048, 4096, 8192, 16384]
+
+command:
+  - ${env}
+  - python
+  - ${program}
+  - solver=pinn
+  - solver.n_iters=10000
+  - ${args_no_hyphens}
+  - pde=committor_nd
+  - pde.n_dim=10
+

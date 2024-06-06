@@ -1,0 +1,3 @@
+_target_: wos.pdes.poisson_nd.PoissonNd
+n_dim: 3
+stop_tol: ${solver.stop_tol}

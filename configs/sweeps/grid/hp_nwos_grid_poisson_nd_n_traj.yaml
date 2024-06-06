@@ -1,0 +1,35 @@
+# invoke the sweep using wandb sweep conf/sweeps/xyz.yaml
+program: scripts/main.py
+name: nwos_grid_poisson_nd
+project: nwos_hp_grid
+method: grid
+parameters:
+  optimizer:
+    values: [sgd,adam]
+  optimizer.lr:
+    values: [0.001] #[0.0001, 0.001, 0.01]
+  solver.model.hid_dim:
+    values: [256]
+  solver.model.n_hidden:
+    values: [4] #[2, 4, 8]
+  solver.percentile:
+    values: [0.5, 0.9]
+  solver.n_batch:
+    values: [65536] #[4096, 8192, 16384, 32768, 65536, 131072, 262144]
+  pde.n_dim:
+    values: [100]
+  solver.n_traj:
+    values: [100, 10, 1]
+  solver.stop_tol:
+    values: [1e-4, 1e-6]
+  # solver.cuda_max_mem_train_mb:
+  #   values: [2]
+command:
+  - ${env}
+  - python
+  - ${program}
+  - solver=nwos
+  - solver.n_iters=30000
+  - ${args_no_hyphens}
+  - pde=poisson_nd
+

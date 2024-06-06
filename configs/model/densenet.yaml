@@ -1,0 +1,13 @@
+_target_: wos.models.mlp.DenseNet
+in_dim: ${pde.n_dim}
+arch:
+  - ${eval:"${pde.n_dim}+20"}
+  - ${pde.n_dim}
+  - ${pde.n_dim}
+  - ${pde.n_dim}
+act_fn:
+  _target_: torch.nn.ReLU
+
+# normalization_factory: 
+#   _target_: torch.nn.BatchNorm1d
+#   num_features: ${solver.model.hid_dim}

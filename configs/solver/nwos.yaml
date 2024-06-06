@@ -1,0 +1,27 @@
+defaults:
+  - model_base_solver
+  - _self_
+
+solver_name: 'NWoS'
+n_traj: 1
+max_step: 1
+
+path_aug: False
+nn_target: True
+# percentile: 0.5 # for percentile-based stopping criterion -> if 0.5, d = 6 * n_dim
+
+control_variate: True
+
+n_traj_max_per_shard: 10000
+n_batch_bound_factor: 0.9 
+# n_batch_domain: ${get_batch:${solver.max_step},${solver.n_batch},${solver.path_aug},${solver.n_traj}}
+n_batch_domain: ${eval:"int(${solver.n_batch}*${solver.n_batch_bound_factor})"}
+n_batch_bound: ${eval:"max(${solver.n_batch} - ${solver.n_batch_domain}, 2)"}
+beta: 500.0
+# warm_start: -1 # period to warm start 
+
+solver:
+  _target_: wos.solvers.nwos_solver.NWoSSolver
+
+wos_solver:
+  _target_: wos.solvers.wos_solver.WoSSolver

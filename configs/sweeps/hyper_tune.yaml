@@ -1,0 +1,18 @@
+# invoke the sweep using wandb sweep conf/sweeps/xyz.yaml
+program: scripts/main.py
+name: hypter_tune
+project: 
+method: grid
+parameters:
+  solver:
+    values: [pis_repr, dis_repr]
+  target:
+    values: [gmm, funnel, mw, mw_50d]
+  loss.method:
+    values: [lv_traj, kl]
+
+command:
+  - ${env}
+  - python
+  - ${program}
+  - ${args_no_hyphens}

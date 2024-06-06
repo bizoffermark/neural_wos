@@ -1,0 +1,35 @@
+# invoke the sweep using wandb sweep conf/sweeps/xyz.yaml
+program: scripts/main.py
+name: pinn_poisson_100d
+project: pinn_hp
+method: bayes
+metric:
+  name: relative_error_domain
+  goal: minimize
+parameters:
+  optimizer.lr:
+    min: 0.0001
+    max: 0.1
+  solver.cff_domain:
+    min: 0.01
+    max: 10000.0
+  solver.cff_bound:
+    min: .01
+    max: 10000.0
+  model.hid_dim:
+    min: 32
+    max: 1024
+  model.n_hidden:
+    min: 1
+    max: 10
+
+command:
+  - ${env}
+  - python
+  - ${program}
+  - solver=pinn
+  - solver.n_iters=10000
+  - ${args_no_hyphens}
+  - pde=poisson_nd
+  - pde.n_dim=100
+

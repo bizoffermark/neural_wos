@@ -1,0 +1,11 @@
+defaults:
+  - model_base_solver
+  - override /model: deepritz
+solver_name: 'Deep Ritz'
+beta: 1000
+early_stopping: 100
+use_early_stopping: False
+
+solver:
+  _target_: wos.solvers.deepritz_solver.DeepRitzSolver
+

@@ -1,0 +1,1 @@
+python3 scripts/main.py -m solver=traj_nwos pde=traj_pde pde.n_dim=5 solver.time_limit=875 solver.control_variate=True,False solver.nn_target=True,False wandb.project=final_memory_parametric &

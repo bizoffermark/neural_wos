@@ -1,0 +1,5 @@
+_target_: wos.pdes.traj_pde.TrajPDE
+n_dim: 2
+stop_tol: ${solver.stop_tol}
+alpha: ${solver.alpha}
+scale: 10

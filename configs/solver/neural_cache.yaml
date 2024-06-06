@@ -1,0 +1,43 @@
+defaults:
+  - model_base_solver
+  - _self_
+
+solver_name: 'neural_cache'
+n_traj: 50
+n_traj_init: ${solver.n_traj} # initial # of trajectory to walk
+max_step: 100000
+
+path_aug: False
+nn_target: False
+# percentile: 0.5 # for percentile-based stopping criterion -> if 0.5, d = 6 * n_dim
+
+control_variate: False
+
+bound_init: False
+
+train_period: 5000
+buffer_size: ${eval:"int(${solver.n_batch}*10)"} #1000000
+n_traj_max_per_shard: 100
+
+n_batch_bound_factor: 0.0
+n_batch_buffer_factor: 1.0
+n_batch_domain_factor: ${eval:"max(1.0 - ${solver.n_batch_bound_factor} - ${solver.n_batch_buffer_factor}, 0.0)"}
+
+n_batch: ${eval:"int(${solver.buffer_size}//10)"} # ${solver.buffer_size}
+# size: ${get_batch:${solver.max_step},${solver.n_batch},${solver.path_aug},${solver.n_traj}}
+n_batch_domain: ${eval:"int(${solver.n_batch}*${solver.n_batch_domain_factor})"}
+n_batch_buffer: ${eval:"int(${solver.n_batch}*${solver.n_batch_buffer_factor})"}
+n_batch_bound: ${eval:"max(${solver.n_batch} - ${solver.n_batch_domain} - ${solver.n_batch_buffer}, 0)"}
+
+n_batch_train: 512
+
+beta: 1.0
+# warm_start: -1 # period to warm start 
+
+use_neural_cache: True
+
+solver:
+  _target_: wos.solvers.buffer_nwos_solver.BufferNWoSSolver
+
+wos_solver:
+  _target_: wos.solvers.wos_solver.WoSSolver

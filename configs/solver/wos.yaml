@@ -1,0 +1,18 @@
+defaults:
+  - base_solver
+
+n_batch_domain: ${solver.n_batch}
+n_batch_bound: 0
+
+solver_name: 'WoS'
+n_traj: 1
+max_step: 100
+
+path_aug: False
+nn_target: False
+time_step: 5e-2
+
+n_traj_max_per_shard: 100
+
+solver:
+  _target_: wos.solvers.wos_solver.WoSSolver
